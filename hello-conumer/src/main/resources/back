@@ -1,0 +1,8 @@
+server.port=8081
+spring.application.name=hello-consumer
+spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+spring.cloud.nacos.discovery.username=nacos
+spring.cloud.nacos.discovery.password=nacos
+#spring.cloud.sentinel.transport.port=8719
+#spring.cloud.sentinel.transport.dashboard=localhost:9090
+#feign.sentinel.enabled=true

@@ -1,0 +1,4 @@
+com\hello\consumer\service\ConsumerService.class
+com\hello\consumer\service\HelloFallback.class
+com\hello\consumer\controller\HelloController.class
+com\hello\consumer\HelloConsumerApplication.class
