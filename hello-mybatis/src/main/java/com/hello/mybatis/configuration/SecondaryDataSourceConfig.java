@@ -1,4 +1,4 @@
 package com.hello.mybatis.configuration;
 
-public class SecondaryDataSource {
+public class SecondaryDataSourceConfig {
 }
