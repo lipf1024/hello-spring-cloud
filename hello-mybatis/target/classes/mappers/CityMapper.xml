@@ -14,8 +14,48 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hello.mybatis.mapper.CityMapper">
-    <select id="selectCityById" resultType="City">
-        select id, name, state, country from city where id = #{id}
+<mapper namespace="com.hello.mybatis.mapper.CityDao">
+    <resultMap id="assembleCity" type="com.hello.mybatis.domain.City" autoMapping="true">
+        <id property="id" column="id"/>
+        <association property="region" columnPrefix="region_"
+                     resultMap="com.hello.mybatis.mapper.RegionDao.assembleRegion" autoMapping="true"/>
+        <association property="country" columnPrefix="country_"
+                     resultMap="com.hello.mybatis.mapper.CountryDao.assembleCountry" autoMapping="true"/>
+    </resultMap>
+    <sql id="fullFields">
+               ${root}.id         as id,
+               ${root}.latitude   as latitude,
+               ${root}.longitude  as longitude,
+               ${root}.name       as name,
+               ${country}.id         as country_id,
+               ${country}.name       as country_name,
+               ${country}.code       as country_code,
+               ${region}.id         as region_id,
+               ${region}.name       as region_name,
+               ${region}.code       as region_code,
+               ${region}.country_id as region_country_id
+    </sql>
+    <select id="findById" resultMap="assembleCity">
+        select
+        <include refid="fullFields">
+            <property name="root" value="y"/>
+            <property name="country" value="c"/>
+            <property name="region" value="r"/>
+        </include>
+        from cities y
+        inner join countries c on y.country_id = c.id
+        inner join regions r on r.id = y.region_id
+        where y.id = #{id}
+    </select>
+    <select id="findByPage" resultMap="assembleCity">
+        select
+        <include refid="fullFields">
+            <property name="root" value="y"/>
+            <property name="country" value="c"/>
+            <property name="region" value="r"/>
+        </include>
+        from cities y
+        inner join countries c on y.country_id = c.id
+        inner join regions r on r.id = y.region_id
     </select>
 </mapper>

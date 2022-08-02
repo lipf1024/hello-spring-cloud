@@ -1,11 +1,11 @@
 package com.hello.mybatis.mapper;
 
-import com.hello.mybatis.domain.City;
+import com.hello.mybatis.domain.Country;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
-public interface CityMapper {
+public interface CountryDao {
 
-    City selectCityById(final @Param("id") int id);
+    Country findById(@Param("id") final short id);
 }
